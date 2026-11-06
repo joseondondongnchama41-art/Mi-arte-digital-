@@ -1,297 +1,86 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Rincón Poético</title>
-  <style>
-    :root {
-      --bg-primary: #fcfbf9;
-      --card-bg: #ffffff;
-      --text-main: #2d3748;
-      --text-muted: #718096;
-      --accent: #8b5cf6;
-      --accent-hover: #7c3aed;
-      --gold: #d97706;
-      --gold-bg: #fffbe completed;
-      --border: #edf2f7;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Georgia', serif;
-    }
-
-    body {
-      background-color: var(--bg-primary);
-      color: var(--text-main);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    header {
-      background-color: var(--card-bg);
-      padding: 2.5rem 1rem;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    }
-
-    header h1 {
-      font-size: 2.2rem;
-      font-weight: normal;
-      letter-spacing: -0.5px;
-      margin-bottom: 0.5rem;
-    }
-
-    header p {
-      font-style: italic;
-      color: var(--text-muted);
-      font-size: 1rem;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      padding: 1.5rem 1rem 0.5rem 1rem;
-    }
-
-    .tab-btn {
-      background: none;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      color: var(--text-muted);
-      transition: all 0.2s ease;
-    }
-
-    .tab-btn.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-      font-weight: bold;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-      width: 100%;
-      flex-grow: 1;
-    }
-
-    .poem-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .poem-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      border: 1px solid var(--border);
-      position: relative;
-    }
-
-    .poem-card.premium-card {
-      border-color: #fef3c7;
-      background: linear-gradient(to bottom right, #ffffff, #fffdfa);
-    }
-
-    .badge {
-      display: inline-block;
-      font-family: system-ui, sans-serif;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.25rem 0.6rem;
-      border-radius: 20px;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .badge-free {
-      background-color: #e0e7ff;
-      color: #3730a3;
-    }
-
-    .badge-premium {
-      background-color: #fef3c7;
-      color: #92400e;
-    }
-
-    .poem-title {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .poem-content {
-      line-height: 1.8;
-      white-space: pre-line;
-      color: #4a5568;
-    }
-
-    .poem-content.locked {
-      max-height: 4.5rem;
-      overflow: hidden;
-      position: relative;
-      mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
-    }
-
-    .buy-box {
-      margin-top: 1.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px dashed var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .price {
-      font-weight: bold;
-      font-size: 1.25rem;
-      color: var(--gold);
-    }
-
-    .btn {
-      background-color: var(--accent);
-      color: white;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: background 0.2s ease;
-      font-family: system-ui, sans-serif;
-    }
-
-    .btn:hover {
-      background-color: var(--accent-hover);
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      border-top: 1px solid var(--border);
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un sol que brilla en África - José Ondo</title>
+<style>
+body{background:linear-gradient(180deg,#FFD700,#FF6B35,#FF2E63,#7B2FFF);color:white;font-family:Arial;text-align:center;margin:0;padding:20px;min-height:100vh}
+h1{color:white;font-size:32px;text-shadow:2px 2px 4px #000}
+.caja{background:white;color:#333;padding:18px;border-radius:20px;margin:12px 0}
+.boton{display:block;background:#FF2E63;color:white;padding:14px;border-radius:15px;font-weight:bold;text-decoration:none;margin:8px 0}
+.boton-verde{background:#25D366}
+button{background:#7B2FFF;color:white;border:none;padding:15px;width:100%;border-radius:15px;font-size:18px;margin:8px 0}
+button:nth-child(odd){background:#FF6B35}
+.poema-solo{display:none;background:white;color:#333;padding:22px;border-radius:20px;text-align:left;white-space:pre-line;line-height:1.8;font-size:17px}
+.volver{background:#333;color:white}
+</style>
 </head>
 <body>
 
-  <header>
-    <h1>Mi Rincón Poético</h1>
-    <p>Antología personal de poesías y escritos</p>
-  </header>
+<div id="inicio">
+<h1>☀️ Un sol que brilla en África ☀️</h1>
+<p><b>José Ondo Ndong Nchama - Bata, Guinea Ecuatorial</b></p>
+<p>Nombre literario: José Ondo Ndong Nchama<br>Seudónimo: Un sol que brilla en África<br>Origen: Micomeseng, Guinea Ecuatorial<br>Residencia: Bata, Litoral</p>
 
-  <nav>
-    <button class="tab-btn active" onclick="filterPoems('all')">Todos</button>
-    <button class="tab-btn" onclick="filterPoems('free')">Gratuitos</button>
-    <button class="tab-btn" onclick="filterPoems('premium')">Exclusivos</button>
-  </nav>
+<div class="caja">
+<h2 style="color:#FF2E63">🛒 VENDER MIS POEMAS</h2>
+<p>Antología Poética completa - <b>2.000 FCFA / 3 €</b></p>
+<a class="boton" href="https://wa.me/240555237627?text=Hola%20Jos%C3%A9%2C%20quiero%20comprar%20tu%20Antolog%C3%ADa">COMPRAR TODO POR WHATSAPP - 555 237 627</a>
+</div>
 
-  <div class="container">
-    <div id="poemContainer" class="poem-grid"></div>
-  </div>
+<div class="caja">
+<h2 style="color:#00C853">🎁 ENVIAR GRATIS</h2>
+<a class="boton boton-verde" href="https://wa.me/?text=Te%20regalo%20poemas%20de%20Jos%C3%A9%20Ondo%20https%3A%2F%2Fjoseondondongnchama41-art.github.io%2FDoctype-html%2F">ENVIAR GRATIS POR WHATSAPP</a>
+</div>
 
-  <footer>
-    <p>© 2026 Reservados todos los derechos del autor.</p>
-  </footer>
+<h2>Elige un poema 👇 Cada uno va por separado</h2>
+<button onclick="abrir('p1')">1. Como aman en el cinema</button>
+<button onclick="abrir('p2')">2. La noche en Bata</button>
+<button onclick="abrir('p3')">3. El primer café de la mañana en Bata</button>
+<button onclick="abrir('p4')">4. Quién soy yo</button>
+<button onclick="abrir('p5')">5. El Nombre</button>
+<button onclick="abrir('p6')">6. Si me adivinaras</button>
+<button onclick="abrir('bio')">📖 Mi Bibliografía</button>
+</div>
 
-  <script>
-    // BASE DE DATOS DE POEMAS (Aquí agregarás los tuyos)
-    const poems = [
-      {
-        id: 1,
-        title: "Susurros del Viento",
-        content: "El viento trae historias de lejos,\nletras perdidas en el atardecer,\nrecuerdos vivos que no envejecen,\nsombras suaves al amanecer.",
-        isPremium: false,
-        price: 0
-      },
-      {
-        id: 2,
-        title: "Noche Eterna",
-        content: "Bajo la luna llena escucho el mar,\nun murmullo distante que no descansa,\nbuscando en el horizonte un lugar,\ndonde el alma encuentre su bonanza.",
-        isPremium: false,
-        price: 0
-      },
-      {
-        id: 3,
-        title: "El Alma de las Estrellas",
-        content: "Hay luz en la oscuridad profunda,\nun destello oculto que no se apaga,\nel universo entero nos conmueve,\nmientras la eternidad se despliega.\n\nCada destello guarda un secreto,\nun pacto sellado en el infinito,\npoesía escrita en la constelación.",
-        isPremium: true,
-        price: 1.99
-      }
-    ];
+<div id="p1" class="poema-solo"><b>COMO AMAN EN EL CINEMA</b>
 
-    // ESTADO DE COMPRAS (Simulado en el navegador)
-    let unlockedPoems = JSON.parse(localStorage.getItem('unlockedPoems')) || [];
+Te quiero pero no es para mi
+y no admitirlo me doleria mas.
 
-    function renderPoems(filter = 'all') {
-      const container = document.getElementById('poemContainer');
-      container.innerHTML = '';
+Cada segundo pienso en ti.
 
-      const filtered = poems.filter(p => {
-        if (filter === 'free') return !p.isPremium;
-        if (filter === 'premium') return p.isPremium;
-        return true;
-      });
+Si la belleza tuviera un nombre seria el tuyo.
 
-      filtered.forEach(poem => {
-        const isUnlocked = !poem.isPremium || unlockedPoems.includes(poem.id);
-        
-        const card = document.createElement('div');
-        card.className = `poem-card ${poem.isPremium ? 'premium-card' : ''}`;
+Yo recorri todos los paises buscando algo mejor, viaje en todos los rincones del mundo pero no encontre nada.
 
-        card.innerHTML = `
-          <span class="badge ${poem.isPremium ? 'badge-premium' : 'badge-free'}">
-            ${poem.isPremium ? 'Premium' : 'Gratuito'}
-          </span>
-          <h2 class="poem-title">${poem.title}</h2>
-          <div class="poem-content ${!isUnlocked ? 'locked' : ''}">
-            ${poem.content}
-          </div>
-          ${poem.isPremium && !isUnlocked ? `
-            <div class="buy-box">
-              <span class="price">$${poem.price.toFixed(2)} USD</span>
-              <button class="btn" onclick="buyPoem(${poem.id})">Desbloquear poema</button>
-            </div>
-          ` : ''}
-        `;
+Y entonces me di cuenta de la belleza que se va perdiendo.
 
-        container.appendChild(card);
-      });
-    }
+Quiero que me ames como aman en el cinema.
 
-    function filterPoems(type) {
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-      renderPoems(type);
-    }
+Porque mi amor por ti es mas que la resurreccion del mismo Cristo.
 
-    function buyPoem(id) {
-      if (confirm("¿Deseas simular la compra de este poema premium?")) {
-        unlockedPoems.push(id);
-        localStorage.setItem('unlockedPoems', JSON.stringify(unlockedPoems));
-        renderPoems();
-        alert("¡Poema desbloqueado con éxito!");
-      }
-    }
+Te quiero.
+<div class="caja"><a class="boton" href="https://wa.me/240555237627?text=Hola%20Jos%C3%A9%2C%20quiero%20comprar%20Como%20aman%20en%20el%20cinema">🛒 COMPRAR ESTE POEMA</a><a class="boton boton-verde" href="https://wa.me/?text=Te%20regalo%20Como%20aman%20en%20el%20cinema%20de%20Jose%20Ondo">🎁 ENVIAR GRATIS ESTE POEMA</a></div>
+<button class="volver" onclick="cerrar()">⬅ VOLVER</button></div>
 
-    // Inicializar lectura de poemas
-    renderPoems();
-  </script>
+<div id="p2" class="poema-solo"><b>LA NOCHE EN BATA</b>
 
-</body>
-</html>
+Las palabras de este mundo no sirven para expresar lo
+Un momento en el que el alma se pone confusa
+Una hora en la que vives lo inesperado
+Un minuto en el que expresas una mezcla de sentimientos
+Donde si no fuiste, serás
+Y un solo segundo te transforma en testigo.
+<div class="caja"><a class="boton" href="https://wa.me/240555237627?text=Hola%20Jos%C3%A9%2C%20quiero%20comprar%20La%20noche%20en%20Bata">🛒 COMPRAR ESTE POEMA</a><a class="boton boton-verde" href="https://wa.me/?text=Te%20regalo%20La%20noche%20en%20Bata%20de%20Jose%20Ondo">🎁 ENVIAR GRATIS ESTE POEMA</a></div>
+<button class="volver" onclick="cerrar()">⬅ VOLVER</button></div>
+
+<div id="p3" class="poema-solo"><b>EL PRIMER CAFÉ DE LA MAÑANA EN BATA</b>
+
+Es más que la risa de un bebé
+Es la relación del cuerpo y el alma
+Por eso cada vez que me tomo uno, siento que existo
+Es como si estar a salvo del fin del mundo
+<div class="caja"><a class="boton" href="https://wa.me/240555237627?text=Hola%20Jos%C3%A9%2C%20quiero%20comprar%20El%20primer%20cafe">🛒 COMPRAR ESTE POEMA</a><a class="boton boton-verde" href="https://wa.me/?text=Te%20regalo%20El%20primer%20cafe%20de%20Jose%20Ondo">🎁 ENVIAR GRATIS ESTE POEMA</a></div>
+<button class="volver" onclick="cerrar()">⬅ VOL
