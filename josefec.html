@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JOSE FC FINAL - Todo Completo</title>
+<meta name="theme-color" content="#0a1a2e">
+<style>
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+body{margin:0;background:#0a1a2e;color:#fff;padding:12px;padding-bottom:90px}
+h1{text-align:center;color:#ffd700;font-size:26px;margin:8px 0}
+h2{color:#ffd700;font-size:18px}
+.card{background:#122a4a;border:1px solid #2a4a70;border-radius:14px;padding:12px;margin:10px 0}
+button{width:100%;padding:14px;border:0;border-radius:10px;background:#ffd700;color:#000;font-weight:bold;font-size:16px;margin:6px 0}
+button.secondary{background:#fff}
+button.danger{background:#ff4444;color:#fff}
+button.verde{background:#22c55e;color:#fff}
+select,input{width:100%;padding:12px;border-radius:10px;border:0;margin:6px 0;font-size:16px}
+.team{display:flex;justify-content:space-between;align-items:center;background:#1e3a5f;padding:10px;border-radius:10px;margin:5px 0}
+.badge{background:#ffd700;color:#000;padding:3px 8px;border-radius:20px;font-size:12px;font-weight:bold}
+.small{font-size:13px;opacity:.85}
+.stats{display:flex;gap:8px;text-align:center}
+.stats div{flex:1;background:#1e3a5f;border-radius:10px;padding:8px}
+.escudo{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:bold;border:3px solid #fff;flex-shrink:0}
+.uniforme{width:52px;height:38px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;color:#fff;text-shadow:0 1px 2px #000;border:1px solid #fff}
+.avatar{width:36px;height:36px;border-radius:50%;background:#ffd700;color:#000;display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0}
+/* CAMPO 3D */
+.campo3d{position:relative;width:100%;height:220px;background:linear-gradient(180deg,#1a7a3a 0%,#2e9e4f 40%,#34ad58 100%);border:3px solid #fff;border-radius:12px;overflow:hidden;margin:10px 0;perspective:600px}
+.campo3d-inner{position:absolute;inset:10px;border:2px solid rgba(255,255,255,.9);border-radius:6px;transform:rotateX(18deg)}
+.linea-medio{position:absolute;left:50%;top:0;bottom:0;width:2px;background:#fff;opacity:.9}
+.circulo{position:absolute;left:50%;top:50%;width:70px;height:70px;border:2px solid #fff;border-radius:50%;transform:translate(-50%,-50%)}
+.porteria{position:absolute;top:80px;width:14px;height:60px;background:#fff;border:2px solid #000}
+.porteria.izq{left:0}
+.porteria.der{right:0}
+.balon{position:absolute;left:46%;top:95px;font-size:28px;transition:all .5s ease;z-index:5;filter:drop-shadow(0 4px 4px #000)}
+.jugador-campo{position:absolute;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;border:2px solid #fff;transition:all .5s ease;z-index:3;box-shadow:0 3px 6px #000}
+.comentario{background:#000;color:#ffd700;padding:8px;border-radius:8px;font-size:13px;min-height:38px;margin-top:6px}
+</style>
+</head>
+<body>
+<h1>⚽ JOSE FC FINAL ⚽</h1>
+<div class="small" style="text-align:center">TODO JUNTO • Equipos + Países + Mundial + Copa África + Guardado completo + Campo 3D + Instalable</div>
+
+<div id="pantalla-inicio">
+  <div class="card">
+    <h2>1. ¿Cómo te llamas, entrenador?</h2>
+    <input id="nombreManager" placeholder="José">
+    <h2>2. Elige liga y equipo o país - PUEDES ELEGIR CUALQUIERA</h2>
+    <select id="ligaSelect" onchange="cambiarLiga()">
+      <option value="LaLiga">🇪🇸 LaLiga España 2026-27</option>
+      <option value="Premier">🏴󐁧󐁢󐁥󐁮󐁧󐁿 Premier League Inglaterra</option>
+      <option value="Ligue1">🇫🇷 Ligue 1 Francia</option>
+      <option value="SerieA">🇮🇹 Serie A Italia</option>
+      <option value="Bundesliga">🇩🇪 Bundesliga Alemania</option>
+      <option value="Africa">🌍 Ligas África</option>
+      <option value="Paises">🌎 Países - Mundial / Copa África / Eurocopa</option>
+      <option value="Champions">⭐ Champions League</option>
+    </select>
+    <div id="listaEquipos"></div>
+    <button onclick="empezarTemporada()">▶ EMPEZAR TEMPORADA</button>
+  </div>
+  <div class="card">
+    <h2>💾 Mis partidas guardadas - COMPLETAS, CON PLANTILLA</h2>
+    <div class="small">Aquí se guarda TODO: equipo, dinero, puntos, trofeos, temporada, año, plantilla con medias y lesiones. Hoy juegas con Barça, mañana con otro, y no pierdes nada.</div>
+    <div id="partidas"></div>
+    <button class="secondary" onclick="verPartidas()">🔄 ACTUALIZAR LISTA</button>
+  </div>
+  <div class="card">
+    <h2>📱 Instalar como App en tu móvil</h2>
+    <div class="small">1. Toca los 3 puntos de Chrome arriba<br>2. Toca "Añadir a pantalla de inicio" o "Instalar aplicación"<br>3. Ya tienes JOSE FC como app, José.</div>
+  </div>
+</div>
+
+<div id="pantalla-juego" style="display:none">
+  <div class="card">
+    <div style="display:flex;gap:10px;align-items:center">
+      <div id="escudoGrande" class="escudo">🔵</div>
+      <div><h2 id="miEquipoTitulo" style="margin:0">Mi Equipo</h2><div class="small" id="uniformeTexto">Uniforme: Azul y Rojo</div><div class="small" id="managerTexto">Entrenador: José</div></div>
+      <div id="uniformeGrande" class="uniforme">JOSE</div>
+    </div>
+    <div class="stats" style="margin-top:10px">
+      <div><b id="dinero">100M</b><br><span class="small">Dinero</span></div>
+      <div><b id="temporada">2026-27</b><br><span class="small">Temporada</span></div>
+      <div><b id="puntos">0</b><br><span class="small">Puntos</span></div>
+      <div><b id="trofeos">0 🏆</b><br><span class="small">Trofeos</span></div>
+    </div>
+    <div class="small" id="estadoAficion">Afición: 😊 Contentos</div>
+    <div class="small" id="historial">Historial: Temporada 1</div>
+  </div>
+
+  <div class="card">
+    <h2>📋 Mi plantilla - Avatar, no foto real</h2>
+    <div class="small">Uso avatar con inicial y uniforme, José, para que no te borren el juego. Es legal y bonito.</div>
+    <div id="plantilla"></div>
+  </div>
+
+  <div class="card">
+    <h2>⚽ Partido en campo 3D</h2>
+    <div class="campo3d">
+      <div class="campo3d-inner"></div>
+      <div class="linea-medio"></div>
+      <div class="circulo"></div>
+      <div class="porteria izq"></div>
+      <div class="porteria der"></div>
+      <div class="jugador-campo" id="j1" style="left:18%;top:30%;background:#ffd700;color:#000">J1</div>
+      <div class="jugador-campo" id="j2" style="left:32%;top:60%;background:#ffd700;color:#000">J2</div>
+      <div class="jugador-campo" id="j3" style="left:48%;top:35%;background:#ffd700;color:#000">J3</div>
+      <div class="jugador-campo" id="j4" style="left:62%;top:60%;background:#ff4444">R1</div>
+      <div class="jugador-campo" id="j5" style="left:78%;top:30%;background:#ff4444">R2</div>
+      <div class="balon" id="balon">⚽</div>
+    </div>
+    <div class="comentario" id="comentario">🎙️ ¡Bienvenido, José! Elige tu rival y toca JUGAR PARTIDO.</div>
+    <select id="rivalSelect"></select>
+    <button onclick="jugarPartido()">⚽ JUGAR PARTIDO EN CAMPO 3D</button>
+    <div id="resultado" class="small"></div>
+  </div>
+
+  <div class="card">
+    <h2>💰 Fichar / Vender</h2>
+    <select id="mercadoSelect"></select>
+    <button onclick="fichar()">💰 FICHAR</button>
+    <button class="secondary" onclick="vender()">💸 VENDER ÚLTIMO +15M</button>
+    <div class="small">Si fichas mucho, te quedas sin dinero. ¡Cuidado, José!</div>
+  </div>
+
+  <div class="card">
+    <h2>🏆 Competiciones - Mundial, Copa África, todo</h2>
+    <button onclick="jugarCopa()">🏆 JUGAR MUNDIAL / COPA ÁFRICA / CHAMPIONS / EUROCOPA</button>
+    <button onclick="ceremoniaBalonOro()">🌟 CEREMONIA BALÓN DE ORO</button>
+    <button class="secondary" onclick="siguienteTemporada()">➡ SIGUIENTE TEMPORADA - Año siguiente, nunca termina</button>
+    <div id="copaResultado" class="small"></div>
+  </div>
+
+  <button class="verde" onclick="guardarPartida()">💾 GUARDAR PARTIDA COMPLETA - Con plantilla</button>
+  <button class="secondary" onclick="guardarYcambiar()">💾 GUARDAR Y CAMBIAR DE EQUIPO - Sin perder esta partida</button>
+  <button class="secondary" onclick="volverInicio()">⬅ VOLVER A INICIO</button>
+</div>
+
+<script>
+const COLORES = {
+  "FC Barcelona":{escudo:"🔵🔴",color:"linear-gradient(90deg,#a50044 50%,#004d98 50%)",uniforme:"Azul y Rojo 2026-27"},
+  "Real Madrid":{escudo:"👑",color:"#ffffff",uniforme:"Blanco 2026-27"},
+  "Atlético Madrid":{escudo:"🔴⚪",color:"#c8102e",uniforme:"Rojo y Blanco"},
+  "Arsenal":{escudo:"🔴",color:"#ef0107",uniforme:"Rojo"},
+  "Manchester City":{escudo:"🔵",color:"#6cabdd",uniforme:"Celeste"},
+  "Liverpool FC":{escudo:"🔴",color:"#c8102e",uniforme:"Rojo"},
+  "Paris Saint-Germain":{escudo:"🔵🔴",color:"#004170",uniforme:"Azul Marino"},
+  "Bayern Munich":{escudo:"🔴",color:"#dc052d",uniforme:"Rojo"},
+  "Inter Milan":{escudo:"⚫🔵",color:"#0068a8",uniforme:"Azul y Negro"},
+  "AC Milan":{escudo:"🔴⚫",color:"#fb090b",uniforme:"Rojo y Negro"},
+  "Juventus FC":{escudo:"⚫⚪",color:"#000000",uniforme:"Blanco y Negro"},
+  "Marruecos":{escudo:"🦁",color:"#c1272d",uniforme:"Rojo"},
+  "Senegal":{escudo:"🦁",color:"#00853f",uniforme:"Verde"},
+  "Nigeria":{escudo:"🦅",color:"#008751",uniforme:"Verde"},
+  "España":{escudo:"🇪🇸",color:"#c60b1e",uniforme:"Rojo"},
+  "Argentina":{escudo:"🇦🇷",color:"#75aadb",uniforme:"Celeste y Blanco"},
+  "Brasil":{escudo:"🇧🇷",color:"#009739",uniforme:"Amarillo y Verde"}
+};
+function getColor(e){return COLORES[e]||{escudo:"⚽",color:"#1e3a5f",uniforme:"Azul"}}
+const DATOS = {
+  "LaLiga": ["FC Barcelona","Real Madrid","Atlético Madrid","Sevilla FC","Real Sociedad","Athletic Club","Villarreal CF","Real Betis","Valencia CF","Girona FC","Getafe CF","RCD Mallorca","CA Osasuna","RC Celta","Rayo Vallecano","Deportivo Alavés","UD Las Palmas","CD Leganés","Real Valladolid","RCD Espanyol"],
+  "Premier": ["Arsenal","Manchester City","Liverpool FC","Chelsea FC","Manchester United","Tottenham Hotspur","Newcastle United","Aston Villa","Brighton","West Ham United","Everton FC","Fulham FC","Brentford FC","Crystal Palace","Nottingham Forest","Wolverhampton","Bournemouth","Leicester City","Ipswich Town","Southampton"],
+  "Ligue1": ["Paris Saint-Germain","Olympique Marseille","AS Monaco","LOSC Lille","Olympique Lyon","OGC Nice","Stade Rennais","RC Lens","Toulouse FC","Stade Reims","Montpellier HSC","FC Nantes","AJ Auxerre","Angers SCO","Le Havre AC","AS Saint-Étienne","Stade Brestois","RC Strasbourg"],
+  "SerieA": ["Inter Milan","AC Milan","Juventus FC","AS Roma","SSC Napoli","Atalanta BC","SS Lazio","ACF Fiorentina","Bologna FC","Torino FC","Udinese Calcio","Genoa CFC","Hellas Verona","Cagliari Calcio","Empoli FC","Como 1907","Parma Calcio","Venezia FC","US Lecce","AC Monza"],
+  "Bundesliga": ["Bayern Munich","Borussia Dortmund","RB Leipzig","Bayer Leverkusen","VfB Stuttgart","Eintracht Frankfurt","VfL Wolfsburg","Borussia Mönchengladbach","SC Freiburg","TSG Hoffenheim","Werder Bremen","FC Augsburg","1. FC Union Berlin","1. FC Heidenheim","FC St. Pauli","Holstein Kiel","1. FSV Mainz 05","VfL Bochum"],
+  "Africa": ["Al Ahly (Egipto)","Mamelodi Sundowns (Sudáfrica)","Wydad Casablanca (Marruecos)","Raja Casablanca (Marruecos)","Espérance Tunis (Túnez)","TP Mazembe (Congo)","Simba SC (Tanzania)","Young Africans (Tanzania)","Orlando Pirates (Sudáfrica)","Kaizer Chiefs (Sudáfrica)","Renaissance Berkane (Marruecos)","Zamalek SC (Egipto)","Pyramids FC (Egipto)","CR Belouizdad (Argelia)","AS FAR Rabat (Marruecos)","Asec Mimosas (Costa de Marfil)","Enyimba FC (Nigeria)","Horoya AC (Guinea)"],
+  "Paises": ["España","Francia","Inglaterra","Alemania","Italia","Portugal","Países Bajos","Bélgica","Marruecos","Senegal","Nigeria","Camerún","Costa de Marfil","Ghana","Egipto","Argelia","Argentina","Brasil","México","Estados Unidos","Japón","Corea del Sur"],
+  "Champions": ["FC Barcelona","Real Madrid","Manchester City","Bayern Munich","Paris Saint-Germain","Inter Milan","Arsenal","Liverpool FC","Borussia Dortmund","Juventus FC","AC Milan","Atlético Madrid","RB Leipzig","Bayer Leverkusen","AS Monaco","Atalanta BC"]
+};
+const MERCADO = [
+  {nombre:"Extremo Joven - 85",precio:20},
+  {nombre:"Delantero - 86",precio:25},
+  {nombre:"Centrocampista - 84",precio:18},
+  {nombre:"Defensa - 83",precio:15},
+  {nombre:"Portero - 82",precio:12}
+];
+let equipoActual=""; let dinero=100; let puntos=0; let trofeos=0; let temporadaAno=2026; let plantilla=[]; let ligaActual="LaLiga"; let partidaId=null; let numTemporadas=1; let historialTexto="";
+
+function cambiarLiga(){
+  let liga=document.getElementById("ligaSelect").value; ligaActual=liga;
+  let html="";
+  DATOS[liga].forEach(eq=>{
+    let c=getColor(eq);
+    html+=`<div class="team"><div style="display:flex;gap:8px;align-items:center"><div class="escudo" style="background:${c.color}">${c.escudo}</div><span>${eq}<br><span class="small">Uniforme: ${c.uniforme}</span></span></div><span class="badge">ELEGIR</span></div>`;
+  });
+  document.getElementById("listaEquipos").innerHTML=html+`<select id="equipoSelect">`+DATOS[liga].map(e=>`<option>${e}</option>`).join("")+`</select>`;
+}
+function crearPlantillaBase(){
+  return [
+    {nombre:"Portero",pos:"POR",media:82,lesion:false},
+    {nombre:"Defensa",pos:"DEF",media:83,lesion:false},
+    {nombre:"Defensa",pos:"DEF",media:81,lesion:false},
+    {nombre:"Centrocampista",pos:"MED",media:84,lesion:false},
+    {nombre:"Centrocampista",pos:"MED",media:82,lesion:false},
+    {nombre:"Extremo",pos:"DEL",media:87,lesion:false},
+    {nombre:"Delantero",pos:"DEL",media:86,lesion:false}
+  ];
+}
+function empezarTemporada(){
+  equipoActual=document.getElementById("equipoSelect").value;
+  dinero=100;puntos=0;trofeos=0;temporadaAno=2026;numTemporadas=1;historialTexto="";partidaId=null;
+  plantilla=crearPlantillaBase();
+  mostrarJuego();
+}
+function mostrarJuego(){
+  document.getElementById("pantalla-inicio").style.display="none";
+  document.getElementById("pantalla-juego").style.display="block";
+  let rivales=DATOS[ligaActual].filter(e=>e!==equipoActual);
+  if(rivales.length===0) rivales=["Real Madrid","FC Barcelona"];
+  document.getElementById("rivalSelect").innerHTML=rivales.map(e=>`<option>${e}</option>`).join("");
+  document.getElementById("mercadoSelect").innerHTML=MERCADO.map((m,i)=>`<option value="${i}">${m.nombre} - ${m.precio}M</option>`).join("");
+  actualizarPantalla();
+}
+function actualizarPantalla(){
+  let c=getColor(equipoActual);
+  let manager=document.getElementById("nombreManager").value||"José";
+  document.getElementById("escudoGrande").innerText=c.escudo;
+  document.getElementById("escudoGrande").style.background=c.color;
+  document.getElementById("uniformeGrande").style.background=c.color;
+  document.getElementById("uniformeGrande").innerText=equipoActual.slice(0,4).toUpperCase();
+  document.getElementById("uniformeTexto").innerText="Uniforme: "+c.uniforme;
+  document.getElementById("managerTexto").innerText="Entrenador: "+manager;
+  document.getElementById("miEquipoTitulo").innerText="🏟️ "+equipoActual;
+  document.getElementById("dinero").innerText=dinero+"M";
+  document.getElementById("temporada").innerText=temporadaAno+"-"+(temporadaAno+1).toString().slice(2);
+  document.getElementById("puntos").innerText=puntos;
+  document.getElementById("trofeos").innerText=trofeos+" 🏆";
+  document.getElementById("estadoAficion").innerText="Afición: "+(puntos>20?"😍 Muy contentos":puntos>10?"😊 Contentos":"😔 Tristes - Gana más, José");
+  document.getElementById("historial").innerText="Historial: Temporada "+numTemporadas+" • Año "+temporadaAno+" • "+historialTexto;
+  let html="";
+  plantilla.forEach(j=>{
+    let inicial=j.nombre.charAt(0);
+    html+=`<div class="team"><div style="display:flex;gap:8px;align-items:center"><div class="avatar">${inicial}</div><div><b>${j.pos} - ${j.nombre}</b><br><span class="small">Media ${j.media} • ${j.lesion?"🤕 LESIONADO":"✅ OK"} • ${c.uniforme}</span></div></div><div class="uniforme" style="background:${c.color}">${j.media}</div></div>`;
+  });
+  document.getElementById("plantilla").innerHTML=html;
+}
+function animarCampo3D(gano,empate){
+  let balon=document.getElementById("balon");
+  let comentarios=["🎙️ ¡Sale el balón!","🎙️ ¡Qué pase, José!","🎙️ ¡Corre, corre!","🎙️ ¡CHUTA!"];
+  let idx=0;
+  document.getElementById("comentario").innerText=comentarios[0];
+  let pasos=[["55%","70px"],["68%","55px"],["80%","80px"],[gano?"92%":empate?"50%":"8%","95px"]];
+  pasos.forEach((p,i)=>{
+    setTimeout(()=>{
+      balon.style.left=p[0]; balon.style.top=p[1]; balon.style.transform=`scale(${1+i*0.2}) rotate(${i*90}deg)`;
+      document.getElementById("comentario").innerText=comentarios[Math.min(i,3)];
+      document.getElementById("j1").style.left=(18+i*8)+"%";
+      document.getElementById("j3").style.left=(48+i*6)+"%";
+      document.getElementById("j4").style.left=(62-i*5)+"%";
+    },i*400);
+  });
+  setTimeout(()=>{balon.style.left="46%"; balon.style.top="95px"; balon.style.transform="scale(1)";},2200);
+}
+function jugarPartido(){
+  let rival=document.getElementById("rivalSelect").value;
+  let golesYo=Math.floor(Math.random()*4);
+  let golesRival=Math.floor(Math.random()*3);
+  let gano=golesYo>golesRival; let empate=golesYo===golesRival;
+  animarCampo3D(gano,empate);
+  let texto=`⚽ ${equipoActual} ${golesYo} - ${golesRival} ${rival}. `;
+  if(gano){puntos+=3; texto+="¡GANASTE, JOSÉ! +3 puntos 🎉"; document.getElementById("comentario").innerText="🎙️ ¡GOOOOL! ¡GANASTE, JOSÉ!";}
+  else if(empate){puntos+=1; texto+="Empate. +1 punto.";}
+  else {texto+="Perdiste. No pasa nada, sigue, José.";}
+  if(Math.random()<0.2 && plantilla.length>0){
+    let idx=Math.floor(Math.random()*plantilla.length);
+    plantilla[idx].lesion=true;
+    texto+=` 🤕 ¡Ay! ${plantilla[idx].nombre} se lesionó.`;
+  }
+  document.getElementById("resultado").innerText=texto;
+  setTimeout(actualizarPantalla,700);
+}
+function fichar(){
+  let idx=document.getElementById("mercadoSelect").value; let jug=MERCADO[idx];
+  if(dinero<jug.precio){alert("José, no tienes dinero. Vende un jugador primero.");return;}
+  dinero-=jug.precio;
+  plantilla.push({nombre:jug.nombre,pos:"FICHAJE",media:84,lesion:false});
+  alert("¡Fichado! "+jug.nombre+" es tuyo, José!");
+  actualizarPantalla();
+}
+function vender(){
+  if(plantilla.length<=5){alert("José, no puedes vender más.");return;}
+  let v=plantilla.pop(); dinero+=15; alert("Vendido "+v.nombre+" por 15M."); actualizarPantalla();
+}
+function jugarCopa(){
+  let copas=["Mundial","Copa África","Eurocopa","Copa del Rey","Champions League","Copa América"];
+  let copa=copas[Math.floor(Math.random()*copas.length)];
+  let gana=Math.random()>0.5;
+  if(gana){trofeos++; puntos+=5; historialTexto+=" 🏆 "+copa+" "+temporadaAno; document.getElementById("copaResultado").innerText=`🏆 ¡CAMPEÓN, JOSÉ! Ganaste la ${copa}!`;}
+  else {document.getElementById("copaResultado").innerText=`😔 Perdiste la ${copa}. La próxima la ganas.`;}
+  actualizarPantalla();
+}
+function ceremoniaBalonOro(){
+  let g=Math.random()>0.4;
+  document.getElementById("copaResultado").innerText="🌟 BALÓN DE ORO: "+(g?"¡TU JUGADOR! ¡BALÓN DE ORO PARA TU EQUIPO, JOSÉ! 🌟🏆":"Esta vez lo ganó otro. Tu jugador quedó 2º.");
+  if(g){trofeos++; historialTexto+=" 🌟 Balón de Oro "+temporadaAno;}
+  actualizarPantalla();
+}
+function siguienteTemporada(){
+  temporadaAno++; numTemporadas++; puntos=0;
+  plantilla.forEach(j=>{ if(!j.lesion && j.media<90) j.media++; j.lesion=false; });
+  alert(`¡Nueva temporada ${temporadaAno}-${temporadaAno+1}, José! Temporada ${numTemporadas}. Tus jugadores mejoraron +1 y ya no están lesionados. ¡Los años siguen pasando!`);
+  actualizarPantalla();
+}
+function guardarPartida(){
+  let partidas=JSON.parse(localStorage.getItem("josefc_final")||"[]");
+  let manager=document.getElementById("nombreManager").value||"José";
+  if(partidaId){
+    let i=partidas.findIndex(x=>x.id===partidaId);
+    if(i>=0){ partidas[i]={id:partidaId,manager,equipo:equipoActual,liga:ligaActual,dinero,puntos,trofeos,temporadaAno
